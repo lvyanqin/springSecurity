@@ -30,7 +30,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
         http.csrf().requireCsrfProtectionMatcher(myCsrfMatcher());
         
-//        http.rememberMe().rememberMeServices(rememberMeServices);
+        http.rememberMe().rememberMeServices(myRemeberMeService());
         
         http.authorizeRequests()
                 .antMatchers("/show").authenticated()
@@ -52,7 +52,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 //                .tokenValiditySeconds(2419200)
 //                .key("key") //在cookie中存储一个token，token包含用户名、密码、过期时间和一个私钥，进行MD5加密，私钥默认SpringSecured
 //            .and()
-            .logout()
+            .logout() //通过post login?logout 进行退出登录，如果加了csrf，记得加上这个参数
             .logoutSuccessUrl("/")
             .and()
             .httpBasic();
@@ -60,7 +60,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.authenticationProvider(authenticationProvider());
+        auth.authenticationProvider(authenticationProvider()); //通过provider进行自定义的登录
 //        auth.inMemoryAuthentication() //启用内存用户存储
 //                .withUser("1").password("1").roles("1").and()
 //                .withUser("2").password("2").authorities("ROLE_2");
@@ -69,7 +69,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Bean
     public AuthenticationProvider authenticationProvider(){
         DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
-        provider.setUserDetailsService(new CustomerUserDetailService());
+        provider.setUserDetailsService(new MyUserDetailService()); //设置自定义UserDetailsService
         return provider;
     }
     
@@ -85,14 +85,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 //        return super.userDetailsServiceBean();
 //    }
     
-//    @Bean
-//    public MyRemeberMeService myRemeberMeService(){
-//        MyRemeberMeService mrms = new MyRemeberMeService(key, userDetailsService);
-//        mrms.setAlwaysRemember(false);
-//        mrms.setTokenValiditySeconds(1209600);
-//        mrms.setCookieName("SECURITY_REMEBERME");
-//        mrms.setParameter("isRemeberMe");
-//        return mrms;
-//    }
+    @Bean
+    public MyRemeberMeService myRemeberMeService(){
+        MyRemeberMeService mrms = new MyRemeberMeService("key", new MyUserDetailService());
+        mrms.setAlwaysRemember(false);
+        mrms.setTokenValiditySeconds(1209600);
+        mrms.setCookieName("SECURITY_REMEBERME");
+        mrms.setParameter("isRemeberMe");
+        return mrms;
+    }
 
 }

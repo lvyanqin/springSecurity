@@ -5,7 +5,6 @@
  */
 package com.test.config;
 
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.web.authentication.rememberme.TokenBasedRememberMeServices;
 
 /**
@@ -14,7 +13,7 @@ import org.springframework.security.web.authentication.rememberme.TokenBasedReme
  */
 public class MyRemeberMeService extends TokenBasedRememberMeServices{
     
-    public MyRemeberMeService(String key, UserDetailsService userDetailsService) {
+    public MyRemeberMeService(String key, MyUserDetailService userDetailsService) {
         super(key, userDetailsService);
     }
     
