@@ -1,4 +1,9 @@
 /target/
+<<<<<<< HEAD
 
 /bin
 .project
+=======
+.project
+/bin
+>>>>>>> aad5416... gitignore
