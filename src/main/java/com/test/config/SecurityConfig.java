@@ -12,6 +12,7 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.web.util.matcher.RequestMatcher;
 
 /**
@@ -27,6 +28,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
         http.csrf().requireCsrfProtectionMatcher(myCsrfMatcher());
         
+//        http.rememberMe().rememberMeServices(rememberMeServices);
+        
         http.authorizeRequests()
                 .antMatchers("/show").authenticated()
                 .antMatchers("/test").authenticated()
@@ -40,11 +43,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
               
             .and()
             .formLogin()
+                .loginPage("/login")
+            
             .and()
-            .rememberMe() //记住我
-                .tokenValiditySeconds(2419200)
-                .key("key") //在cookie中存储一个token，token包含用户名、密码、过期时间和一个私钥，进行MD5加密，私钥默认SpringSecured
-            .and()
+//            .rememberMe() //记住我
+//                .tokenValiditySeconds(2419200)
+//                .key("key") //在cookie中存储一个token，token包含用户名、密码、过期时间和一个私钥，进行MD5加密，私钥默认SpringSecured
+//            .and()
             .logout()
             .logoutSuccessUrl("/")
             .and()
@@ -65,5 +70,19 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         return requestMatcher;
     }
     
+//    @Bean
+//    public UserDetailsService userDetailsServiceBean() throws Exception {
+//        return super.userDetailsServiceBean();
+//    }
+    
+//    @Bean
+//    public MyRemeberMeService myRemeberMeService(){
+//        MyRemeberMeService mrms = new MyRemeberMeService(key, userDetailsService);
+//        mrms.setAlwaysRemember(false);
+//        mrms.setTokenValiditySeconds(1209600);
+//        mrms.setCookieName("SECURITY_REMEBERME");
+//        mrms.setParameter("isRemeberMe");
+//        return mrms;
+//    }
 
 }

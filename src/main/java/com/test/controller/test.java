@@ -53,4 +53,11 @@ public class test {
         return mv;
     }
     
+    @RequestMapping("/login")
+    public ModelAndView login(){
+        ModelAndView mv = new ModelAndView();
+        mv.setViewName("/login");
+        return mv;
+    }
+    
 }

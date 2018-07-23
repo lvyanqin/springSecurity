@@ -25,6 +25,7 @@ public class UserAction {
     @RequestMapping(value = "/user")
     @ResponseBody
     public String user(){
+
         UserBean user = userMapper.findById(48);
         return "1";
     }
