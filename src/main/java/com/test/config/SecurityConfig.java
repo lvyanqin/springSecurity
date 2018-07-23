@@ -8,6 +8,8 @@ package com.test.config;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
+import org.springframework.security.authentication.AuthenticationProvider;
+import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -58,9 +60,17 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.inMemoryAuthentication() //启用内存用户存储
-                .withUser("1").password("1").roles("1").and()
-                .withUser("2").password("2").authorities("ROLE_2");
+        auth.authenticationProvider(authenticationProvider());
+//        auth.inMemoryAuthentication() //启用内存用户存储
+//                .withUser("1").password("1").roles("1").and()
+//                .withUser("2").password("2").authorities("ROLE_2");
+    }
+    
+    @Bean
+    public AuthenticationProvider authenticationProvider(){
+        DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
+        provider.setUserDetailsService(new CustomerUserDetailService());
+        return provider;
     }
     
     @Bean
