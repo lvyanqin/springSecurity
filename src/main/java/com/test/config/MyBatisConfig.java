@@ -23,9 +23,9 @@ public class MyBatisConfig {
     public DataSource dataSource(){
         DriverManagerDataSource dataSource = new DriverManagerDataSource();
         dataSource.setDriverClassName("net.sf.log4jdbc.sql.jdbcapi.DriverSpy");
-        dataSource.setUrl("jdbc:log4jdbc:sqlserver://192.168.1.235;DatabaseName=diyigaokao");
-        dataSource.setUsername("zhouyunfeng");
-        dataSource.setPassword("zhouyunfeng2233");
+        dataSource.setUrl("jdbc:log4jdbc:sqlserver://192.168.1.235;DatabaseName=XX");
+        dataSource.setUsername("XX");
+        dataSource.setPassword("XX");
         return dataSource;
     }
     
