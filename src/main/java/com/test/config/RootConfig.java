@@ -7,12 +7,14 @@ package com.test.config;
 
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Import;
 
 /**
  *
  * @author Administrator
  */
 @Configuration
+@Import(MyBatisConfig.class)
 @ComponentScan("com.test.*")
 public class RootConfig {
     
