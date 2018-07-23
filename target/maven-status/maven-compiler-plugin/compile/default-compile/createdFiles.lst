@@ -1,8 +1,0 @@
-com\test\config\RootConfig.class
-com\test\config\SpringMVCInitailizer.class
-com\test\config\MyCsrfRequestMatcher$1.class
-com\test\controller\test.class
-com\test\config\MyCsrfRequestMatcher.class
-com\test\config\WebConfig.class
-com\test\config\SecurityConfig.class
-com\test\config\SecurityWebApplicationInitializer.class
